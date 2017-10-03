@@ -1,6 +1,6 @@
 /**
- * angular-data-table - A feature-rich but lightweight ES6 AngularJS Data Table crafted for large data sets!
- * @version v0.7.0
+ * angular-data-table-ext - A feature-rich but lightweight ES6 AngularJS Data Table crafted for large data sets!
+ * @version v0.7.1
  * @link http://swimlane.com/
  * @license 
  */
@@ -998,7 +998,7 @@
     }, {
       key: "calculateDepth",
       value: function calculateDepth(row) {
-        var depth = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+        var depth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
         var parentProp = this.treeColumn ? this.treeColumn.relationProp : this.groupColumn.prop;
         var prop = this.treeColumn.prop;
@@ -1438,7 +1438,7 @@
             var label = $elm[0].querySelector('.dt-header-cell-label'),
                 cellScope = void 0;
 
-            if (ctrl.column.headerTemplate || ctrl.column.headerRenderer) {
+            if (ctrl.column.headerTemplate || ctrl.column.headerRenderer || ctrl.column.name && ctrl.column.name.indexOf('{{') == 0) {
               cellScope = ctrl.options.$outer.$new(false);
 
               cellScope.$header = ctrl.column.name;
@@ -1451,6 +1451,9 @@
             } else if (ctrl.column.headerRenderer) {
               var _elm = angular.element(ctrl.column.headerRenderer($elm));
               angular.element(label).append($compile(_elm)(cellScope)[0]);
+            } else if (ctrl.column.name && ctrl.column.name.indexOf('{{') == 0) {
+              var _elm2 = angular.element("<span>" + ctrl.column.name + "</span>");
+              angular.element(label).append($compile(_elm2)(cellScope));
             } else {
               var val = ctrl.column.name;
               if (val === undefined || val === null) val = '';
