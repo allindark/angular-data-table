@@ -1,7 +1,7 @@
 {
-  "name": "angular-data-table",
-  "version": "0.7.0",
-  "homepage": "https://github.com/Swimlane/angular-data-table",
+  "name": "angular-data-table-ext",
+  "version": "0.7.1",
+  "homepage": "https://github.com/allindark/angular-data-table",
   "author": {
     "name": "Swimlane",
     "email": "austin@swimlane.com",
